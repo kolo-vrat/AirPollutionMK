@@ -64,3 +64,13 @@ def get_air_quality() -> list:
         }
         cities.append(city)
     return cities
+
+def get_aqi_for_city(city):
+    urls = search_stations()
+    results = asyncio.run(async_get_air_quality(urls))
+    aqi = -1
+    for response in results:
+        if(city.lower() in response["data"]["city"]["name"].lower()):
+                aqi = response["data"]["aqi"]
+                break
+    return aqi
